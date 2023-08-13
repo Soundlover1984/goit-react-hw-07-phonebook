@@ -1,18 +1,19 @@
-import { RotatingTriangles } from 'react-loader-spinner';
+import { Watch} from 'react-loader-spinner';
 
 import { LoaderOverlay } from './Loader.styled';
 
 export const Loader = () => {
   return (
     <LoaderOverlay>
-      <RotatingTriangles
+      <Watch
+        height="120"
+        width="120"
+        radius="48"
+        color="#e3ce0c"
+        ariaLabel="watch-loading"
+        wrapperStyle={{}}
+        wrapperClassName=""
         visible={true}
-        height="180"
-        width="180"
-        ariaLabel="rotating-triangels-loading"
-        wrapperStyle={{ position: 'absolute', top: '30%' }}
-        wrapperClass="rotating-triangels-wrapper"
-        colors={['#c47436', '#733c14', '#f1e46d']}
       />
     </LoaderOverlay>
   );

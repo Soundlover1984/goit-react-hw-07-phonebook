@@ -33,7 +33,10 @@ export const ContactList = () => {
     return filteredContacts;
   };
 
-
+const handleDeleteContact = (id, name) => {
+  dispatch(deleteContact(id));
+  Notiflix.Notify.info(`${name} was successfully deleted from your contacts`);
+};
 
   return (
     <List>
@@ -44,7 +47,9 @@ export const ContactList = () => {
             key={contact.id}
             name={contact.name}
             number={contact.number}
-            onDeleteBtnClick={() => dispatch(deleteContact(contact.id))}
+            onDeleteBtnClick={() =>
+              handleDeleteContact(contact.id, contact.name)
+            }
           />
         );
       })}

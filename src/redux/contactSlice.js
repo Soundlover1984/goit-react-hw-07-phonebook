@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchContacts, addContact, deleteContact } from './operations';
-import Notiflix from 'notiflix';
 
 
 export const contactsSlice = createSlice({
@@ -44,9 +43,6 @@ export const contactsSlice = createSlice({
         state.items = state.items.filter(contact => contact.id !== payload.id);
         state.isLoading = false;
         state.error = null;
-        Notiflix.Notify.info(
-          `${payload.name} was successfully deleted from your contacts`
-        );
       })
       .addCase(deleteContact.rejected, (state, { payload }) => {
         state.error = payload;

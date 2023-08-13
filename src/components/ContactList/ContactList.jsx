@@ -1,7 +1,7 @@
 
 import { List } from './ContactList.styled';
 import { ContactItem } from 'components/ContactItem/ContactItem';
-import { removeContact} from 'redux/contactSlice';
+import { deleteContact } from 'redux/operations';
 import Notiflix from 'notiflix';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts, getFilter } from 'redux/selectors';
@@ -38,7 +38,7 @@ export const ContactList = () => {
             key={contact.id}
             name={contact.name}
             number={contact.number}
-            onDeleteBtnClick={() => dispatch(removeContact(contact))}
+            onDeleteBtnClick={() => dispatch(deleteContact(contact))}
           />
         );
       })}

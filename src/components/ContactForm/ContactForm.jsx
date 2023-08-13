@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { ButtonForm } from 'components/ButtonForm/ButtonForm';
 import { MdPersonAddAlt } from 'react-icons/md';
 import { Label, Form } from './ContactForm.styled';
 import { InputItem } from 'components/InputItem/InputItem';
-import { addContact } from 'redux/contactSlice';
+import { addContact } from 'redux/operations';
 import Notiflix from 'notiflix';
 import { getContacts } from 'redux/selectors';
 import { useSelector } from 'react-redux/es/hooks/useSelector';

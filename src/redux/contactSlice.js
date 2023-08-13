@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchContacts, addContact, deleteContact } from './operations';
+import Notiflix from 'notiflix';
 
 
 export const contactsSlice = createSlice({
@@ -9,44 +10,47 @@ export const contactsSlice = createSlice({
     isLoading: false,
     error: null,
   },
-  reducers: {
-    extraReducers: {
-      [fetchContacts.pending]: state => {
+
+  extraReducers: builder => {
+    builder
+      .addCase(fetchContacts.pending, state => {
         state.isLoading = true;
-      },
-      [fetchContacts.fulfilled]: (state, { payload }) => {
+      })
+      .addCase(fetchContacts.fulfilled, (state, { payload }) => {
         state.items = payload;
         state.isLoading = false;
         state.error = null;
-      },
-      [fetchContacts.rejected]: (state, { payload }) => {
-        state.isLoading = false;
+      })
+      .addCase(fetchContacts.rejected, (state, { payload }) => {
         state.error = payload;
-      },
-      [addContact.pending]: state => {
+        state.isLoading = false;
+      })
+      .addCase(addContact.pending, state => {
         state.isLoading = true;
-      },
-      [addContact.fulfilled]: (state, { payload }) => {
+      })
+      .addCase(addContact.fulfilled, (state, { payload }) => {
         state.items.push(payload);
         state.isLoading = false;
         state.error = null;
-      },
-      [addContact.rejected]: (state, { payload }) => {
-        state.isLoading = false;
+      })
+      .addCase(addContact.rejected, (state, { payload }) => {
         state.error = payload;
-      },
-      [deleteContact.pending]: state => {
+        state.isLoading = false;
+      })
+      .addCase(deleteContact.pending, state => {
         state.isLoading = true;
-      },
-      [deleteContact.fulfilled]: (state, { payload }) => {
+      })
+      .addCase(deleteContact.fulfilled, (state, { payload }) => {
+        state.items = state.items.filter(contact => contact.id !== payload.id);
         state.isLoading = false;
         state.error = null;
-        state.items = state.items.filter(contact => contact.id !== payload.id);
-      },
-      [deleteContact.rejected]: (state, { payload }) => {
-        state.isLoading = false;
+        Notiflix.Notify.info(
+          `${payload.name} was successfully deleted from your contacts`
+        );
+      })
+      .addCase(deleteContact.rejected, (state, { payload }) => {
         state.error = payload;
-      },
-    },
+        state.isLoading = false;
+      });
   },
 });

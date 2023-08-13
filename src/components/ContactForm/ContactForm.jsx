@@ -35,17 +35,18 @@ export const ContactForm = () => {
   const handleSubmit = event => {
     event.preventDefault();
 
-    const isInContacts = contacts.some(
-      contact => contact.name.toLowerCase().trim() === name.toLowerCase().trim()
+    const includesName = contacts.find(
+      contact => contact.name.toLocaleLowerCase() === name.toLocaleLowerCase()
     );
-    if (!isInContacts) {
-      dispatch(addContact({ name, number }));
-      Notiflix.Notify.success(
-      `${name} was successfully added to your contacts`)
-    } else {
+
+    if (includesName) {
       Notiflix.Notify.warning(
         `${name} is already in contacts`
       );
+    } else {
+      dispatch(addContact({ name, number }));
+      Notiflix.Notify.success(
+        `${name} was successfully added to your contacts`)
     }
    resetForm();
   };

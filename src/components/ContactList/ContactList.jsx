@@ -1,21 +1,20 @@
-
 import { List } from './ContactList.styled';
 import { ContactItem } from 'components/ContactItem/ContactItem';
 import { deleteContact, fetchContacts } from 'redux/operations';
 import Notiflix from 'notiflix';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getFilter } from 'redux/selectors';
+import { selectContacts, selectFilter } from 'redux/selectors';
 import { useEffect } from 'react';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
 
-    useEffect(() => {
-      dispatch(fetchContacts());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
 
   const filterContacts = () => {
     const query = filter.toLocaleLowerCase();
@@ -25,18 +24,16 @@ export const ContactList = () => {
     );
 
     if (query && !filteredContacts.length) {
-      Notiflix.Notify.warning(
-        'No contacts matching your request'
-      );
+      Notiflix.Notify.warning('No contacts matching your request');
       return [];
     }
     return filteredContacts;
   };
 
-const handleDeleteContact = (id, name) => {
-  dispatch(deleteContact(id));
-  Notiflix.Notify.info(`${name} was successfully deleted from your contacts`);
-};
+  const handleDeleteContact = (id, name) => {
+    dispatch(deleteContact(id));
+    Notiflix.Notify.info(`${name} was successfully deleted from your contacts`);
+  };
 
   return (
     <List>
@@ -56,4 +53,3 @@ const handleDeleteContact = (id, name) => {
     </List>
   );
 };
-

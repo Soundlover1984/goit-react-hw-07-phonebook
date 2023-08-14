@@ -4,7 +4,7 @@ import { FilterWrapper } from './Filter.styled';
 import { Label } from 'components/ContactForm/ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterContact } from 'redux/filterSlice';
-import { getFilter } from 'redux/selectors';
+import { selectFilter } from 'redux/selectors';
 
 const FilterInput = styled(DebounceInput)`
   min-width: 50%;
@@ -16,12 +16,9 @@ const FilterInput = styled(DebounceInput)`
 `;
 
 export const Filter = () => {
-
   const dispatch = useDispatch();
-  const filter = useSelector(getFilter);
+  const filter = useSelector(selectFilter);
 
-  
-  
   return (
     <FilterWrapper>
       <Label>
